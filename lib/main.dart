@@ -23,6 +23,8 @@ Future<void> main() async {
 class PortfolioApp extends StatelessWidget {
   final LoggerService logger = Get.find<LoggerService>();
 
+  PortfolioApp({Key? key}) : super(key: key);
+
   void loggingWithLogger(String text, {bool isError = false}) =>
       isError ? logger.e(text) : logger.d(text);
   final HomeController homeController = Get.find<HomeController>();
