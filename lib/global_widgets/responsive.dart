@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../screens/splash/splash_controller.dart';
+import 'package:portfolio/screens/home/home_controller.dart';
 
 class Responsive extends StatelessWidget {
   final Widget mobile;
   final Widget? tablet;
   final Widget? desktop;
 
-  final SplashController splashController = Get.find<SplashController>();
+  final HomeController homeController = Get.find<HomeController>();
 
   Responsive({
     required this.mobile,
