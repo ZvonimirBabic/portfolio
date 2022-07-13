@@ -1,7 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/screens/home/home_controller.dart';
 
@@ -15,7 +14,7 @@ class DarkModeWidget extends StatelessWidget {
   Widget build(BuildContext context) => ThemeSwitcher(
         builder: (BuildContext context) => Obx(
           () => Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            padding: const EdgeInsets.symmetric(horizontal: 32),
             child: DayNightSwitcher(
               onLongPress: () {},
               isDarkModeEnabled: homeController.isDarkModeEnabled,
