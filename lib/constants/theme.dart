@@ -5,6 +5,9 @@ import 'colors.dart';
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   iconTheme: const IconThemeData(color: PortfolioAppColors.black),
+  appBarTheme: const AppBarTheme(
+    iconTheme: IconThemeData(color: PortfolioAppColors.black),
+  ),
   scaffoldBackgroundColor: PortfolioAppColors.white,
   dividerColor: PortfolioAppColors.black.withOpacity(0.5),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -18,6 +21,9 @@ final ThemeData lightTheme = ThemeData(
 
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
+  appBarTheme: const AppBarTheme(
+    iconTheme: IconThemeData(color: PortfolioAppColors.white),
+  ),
   iconTheme: const IconThemeData(color: PortfolioAppColors.white),
   scaffoldBackgroundColor: PortfolioAppColors.black,
   dividerColor: PortfolioAppColors.white.withOpacity(0.5),
