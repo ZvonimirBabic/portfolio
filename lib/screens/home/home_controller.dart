@@ -13,6 +13,7 @@ class HomeController extends GetxController {
   /// ------------------------
 
   final RxBool _isDarkModeEnabled = false.obs;
+  final RxInt _fontSize = 100.obs;
 
   /// ------------------------
   /// GETTERS
@@ -20,12 +21,14 @@ class HomeController extends GetxController {
 
   bool get isDarkModeEnabled => _isDarkModeEnabled.value;
   String get themeName => isDarkModeEnabled ? 'darkTheme' : 'lightTheme';
+  int get fontSize => _fontSize.value;
 
   /// ------------------------
   /// SETTERS
   /// ------------------------
 
   set isDarkModeEnabled(bool value) => _isDarkModeEnabled.value = value;
+  set fontSize(int value) => _fontSize.value = value;
 
   /// ------------------------
   /// INIT
@@ -40,4 +43,15 @@ class HomeController extends GetxController {
   /// METHODS
   /// ------------------------
 
+  void increaseFont() {
+    if (fontSize != 150) {
+      fontSize += 5;
+    }
+  }
+
+  void decreaseFont() {
+    if (fontSize != 100) {
+      fontSize -= 5;
+    }
+  }
 }
