@@ -34,6 +34,7 @@ class PortfolioApp extends StatelessWidget {
           initTheme: homeController.isDarkModeEnabled ? darkTheme : lightTheme,
           builder: (BuildContext context, ThemeData darkTheme) =>
               GetMaterialApp(
+            theme: homeController.isDarkModeEnabled ? darkTheme : lightTheme,
             title: 'appName'.tr,
             logWriterCallback: loggingWithLogger,
             initialBinding: GlobalBinding(),
