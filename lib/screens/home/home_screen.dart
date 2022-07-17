@@ -23,6 +23,30 @@ class HomeScreen extends StatelessWidget {
         child: SafeArea(
           child: Scaffold(
             appBar: AppBar(
+              title: Row(
+                children: [
+                  Obx(
+                    () => AnimatedOpacity(
+                      opacity: homeController.shouldShowName ? 1 : 0,
+                      duration: const Duration(milliseconds: 400),
+                      child: PortfolioText(
+                          text: 'Zvonimir Babić',
+                          literal: true,
+                          style: PortfolioTextStyles.subtitle),
+                    ),
+                  ),
+                  Obx(
+                    () => AnimatedOpacity(
+                      opacity: homeController.shouldShowJob ? 1 : 0,
+                      duration: const Duration(milliseconds: 400),
+                      child: PortfolioText(
+                          text: ' - Flutter Developer',
+                          literal: true,
+                          style: PortfolioTextStyles.subtitle),
+                    ),
+                  ),
+                ],
+              ),
               actions: <Widget>[
                 PopupMenuButton(
                   shape: RoundedRectangleBorder(
@@ -82,7 +106,7 @@ class HomeScreen extends StatelessWidget {
             ),
             body: Responsive(
               mobile: const HomeScreenMobileLayout(),
-              desktop: const HomeScreenDesktopLayout(),
+              desktop: HomeScreenDesktopLayout(),
             ),
           ),
         ),

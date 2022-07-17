@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../example_widgets/2fa.dart';
 import '../../services/logger_service.dart';
 
 class HomeController extends GetxController {
@@ -14,6 +17,18 @@ class HomeController extends GetxController {
 
   final RxBool _isDarkModeEnabled = false.obs;
   final RxInt _fontSize = 100.obs;
+  final RxBool _shouldShowName = false.obs;
+  final RxBool _shouldShowJob = false.obs;
+
+  final ScrollController scrollController = ScrollController();
+  final PageController pageController = PageController(viewportFraction: 1);
+
+  final List<Widget> exampleWidgets = <Widget>[
+    const TwoFAWidget(),
+    const TwoFAWidget(),
+    const TwoFAWidget(),
+    const TwoFAWidget(),
+  ];
 
   /// ------------------------
   /// GETTERS
@@ -22,6 +37,8 @@ class HomeController extends GetxController {
   bool get isDarkModeEnabled => _isDarkModeEnabled.value;
   String get themeName => isDarkModeEnabled ? 'darkTheme' : 'lightTheme';
   int get fontSize => _fontSize.value;
+  bool get shouldShowName => _shouldShowName.value;
+  bool get shouldShowJob => _shouldShowJob.value;
 
   /// ------------------------
   /// SETTERS
@@ -29,6 +46,8 @@ class HomeController extends GetxController {
 
   set isDarkModeEnabled(bool value) => _isDarkModeEnabled.value = value;
   set fontSize(int value) => _fontSize.value = value;
+  set shouldShowName(bool value) => _shouldShowName.value = value;
+  set shouldShowJob(bool value) => _shouldShowJob.value = value;
 
   /// ------------------------
   /// INIT
@@ -42,6 +61,17 @@ class HomeController extends GetxController {
   /// ------------------------
   /// METHODS
   /// ------------------------
+
+  Future<void> urlLaunch(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+      );
+    } else {
+      throw 'There was a problem to open the uri: $url';
+    }
+  }
 
   void increaseFont() {
     if (fontSize != 150) {
