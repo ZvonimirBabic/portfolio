@@ -13,4 +13,5 @@ class ImageAssets {
   static String dayPattern = 'assets/images/dayPattern.png';
   static String pixelWorld = 'assets/images/pixelWorld.png';
   static String cinnamonAgencyLogo = 'assets/images/cinnamonAgencyLogo.png';
+  static String s22Ultra = 'assets/images/s22ultra.png';
 }
