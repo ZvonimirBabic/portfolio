@@ -30,6 +30,8 @@ class PortfolioApp extends StatelessWidget {
   final HomeController homeController = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) => ScreenUtilInit(
+        rebuildFactor: (MediaQueryData newData, MediaQueryData oldData) =>
+            false,
         builder: (BuildContext context, Widget? widget) => ThemeProvider(
           initTheme: homeController.isDarkModeEnabled ? darkTheme : lightTheme,
           builder: (BuildContext context, ThemeData darkTheme) =>
