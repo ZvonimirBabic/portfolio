@@ -13,7 +13,7 @@ class Translation extends Translations {
           'socials': 'Find me on:',
           'education': 'My education:',
           'experience': 'My experience:',
-          'interactive': 'Interactive examples:',
+          'interactive': 'Interactive examples ',
           'about_me':
               "Developer with a passion for mobile technologies. I enjoy doing what I know and learning what I don't. Looking forward to make ideas and design come to life in the palm of your hand.",
           'about_me2': 'Based in Europe, Croatia.',
@@ -22,6 +22,7 @@ class Translation extends Translations {
           'quote2': 'Nec dei nec reges at homines soli',
           'takeALookResume': 'Take a look at my ',
           'ongoing': 'Ongoing',
+          'scaledForDesktop': 'scaled for desktop use',
         },
         'de_DE': <String, String>{
           'helloWorld': 'Hallo Welt!',

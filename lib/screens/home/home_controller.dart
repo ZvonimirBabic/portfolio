@@ -24,10 +24,10 @@ class HomeController extends GetxController {
   final PageController pageController = PageController(viewportFraction: 1);
 
   final List<Widget> exampleWidgets = <Widget>[
-    const TwoFAWidget(),
-    const TwoFAWidget(),
-    const TwoFAWidget(),
-    const TwoFAWidget(),
+    TwoFAWidget(),
+    TwoFAWidget(),
+    TwoFAWidget(),
+    TwoFAWidget(),
   ];
 
   /// ------------------------

@@ -34,6 +34,14 @@ class InteractiveWidget extends StatelessWidget {
                           ? PortfolioTextStyles.subtitle
                           : PortfolioTextStyles.subtitleMobile),
                 ),
+                if (isDesktop)
+                  Flexible(
+                    child: PortfolioText(
+                        text: 'scaledForDesktop',
+                        style: isDesktop
+                            ? PortfolioTextStyles.subtitle
+                            : PortfolioTextStyles.subtitleMobile),
+                  ),
               ],
             ),
           ),
@@ -56,18 +64,19 @@ class InteractiveWidget extends StatelessWidget {
                       ImageAssets.s22Ultra,
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(left: 247.0),
-                        child: FittedBox(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: PortfolioAppColors.white,
-                            ),
-                            width: 227,
-                            height: 480,
-                            child: homeController.exampleWidgets[index],
+                      padding: const EdgeInsets.only(left: 247.0),
+                      child: FittedBox(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: PortfolioAppColors.white,
                           ),
-                        ))
+                          width: 227,
+                          height: 480,
+                          child: homeController.exampleWidgets[index],
+                        ),
+                      ),
+                    )
                   ],
                 );
               },
