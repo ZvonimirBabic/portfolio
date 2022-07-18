@@ -1,4 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,13 +11,16 @@ import 'bindings/global_bindings.dart';
 import 'constants/pages.dart';
 import 'constants/theme.dart';
 import 'constants/translation.dart';
+import 'firebase_options.dart';
 import 'services/logger_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await GetStorage.init();
   GlobalBinding().dependencies();
-
   runApp(PortfolioApp());
 }
 
