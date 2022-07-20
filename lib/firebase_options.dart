@@ -70,7 +70,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '838637244406',
     projectId: 'portfolio-7a9b1',
     storageBucket: 'portfolio-7a9b1.appspot.com',
-    iosClientId: '838637244406-l3gpv6nivd31ev9i03bvq38pl141ih53.apps.googleusercontent.com',
+    iosClientId:
+        '838637244406-l3gpv6nivd31ev9i03bvq38pl141ih53.apps.googleusercontent.com',
     iosBundleId: 'com.example.portfolio',
   );
 }

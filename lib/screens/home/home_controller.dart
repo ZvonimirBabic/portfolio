@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../example_widgets/2fa.dart';
+import '../../example_widgets/2fa/2fa.dart';
 import '../../services/logger_service.dart';
 
 class HomeController extends GetxController {
@@ -24,9 +24,6 @@ class HomeController extends GetxController {
   final PageController pageController = PageController(viewportFraction: 1);
 
   final List<Widget> exampleWidgets = <Widget>[
-    TwoFAWidget(),
-    TwoFAWidget(),
-    TwoFAWidget(),
     TwoFAWidget(),
   ];
 
