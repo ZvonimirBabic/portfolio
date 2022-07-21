@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:portfolio/constants/colors.dart';
 import 'package:portfolio/global_widgets/spacers.dart';
 
-import '../../../constants/global_keys.dart';
 import '../../../constants/images.dart';
 import '../../../constants/text_styles.dart';
 import '../../../global_widgets/portfolio_text.dart';
@@ -76,7 +75,6 @@ class InteractiveWidget extends StatelessWidget {
                           height: 480,
                           child: MaterialApp(
                             home: Scaffold(
-                                key: keys[index],
                                 body: homeController.exampleWidgets[index]),
                           ),
                         ),

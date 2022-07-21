@@ -1,6 +1,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/global_widgets/spacers.dart';
 
 import '../../constants/text_styles.dart';
 import '../../global_widgets/dark_mode_widget.dart';
@@ -45,6 +46,12 @@ class HomeScreen extends StatelessWidget {
                           style: PortfolioTextStyles.subtitle),
                     ),
                   ),
+                  const HorizontalSpacer(),
+                  PortfolioText(
+                      text:
+                          'Work in progress please check back later for complete experience',
+                      literal: true,
+                      style: PortfolioTextStyles.subtitle),
                 ],
               ),
               actions: <Widget>[

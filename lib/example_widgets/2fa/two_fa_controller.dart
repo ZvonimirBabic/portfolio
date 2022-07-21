@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/example_widgets/2fa/2fa.dart';
 import 'package:portfolio/example_widgets/2fa/confirm_passcode_screen.dart';
+import 'package:portfolio/example_widgets/2fa/success_login.dart';
 
-import '../../constants/global_keys.dart';
 import '../../services/logger_service.dart';
 
 class TwoFAController extends GetxController
@@ -12,8 +13,8 @@ class TwoFAController extends GetxController
   /// LOGGER
   /// ------------------------
   final LoggerService logger = Get.find<LoggerService>();
-  late ConfirmationResult confirmationResult;
-  final BuildContext context = keys[0].currentContext!;
+  ConfirmationResult? confirmationResult;
+  BuildContext? context;
   final TextEditingController fieldOne = TextEditingController();
   final TextEditingController fieldTwo = TextEditingController();
   final TextEditingController fieldThree = TextEditingController();
@@ -31,6 +32,7 @@ class TwoFAController extends GetxController
 
   String _phoneNumber = '';
   final RxBool _phoneValid = false.obs;
+  final RxBool _isLoading = false.obs;
   final RxBool _passcodeEntered = false.obs;
 
   /// ------------------------
@@ -38,6 +40,7 @@ class TwoFAController extends GetxController
   /// ------------------------
 
   bool get phoneValid => _phoneValid.value;
+  bool get isLoading => _isLoading.value;
   bool get passcodeEntered => _passcodeEntered.value;
 
   /// ------------------------
@@ -67,23 +70,45 @@ class TwoFAController extends GetxController
   /// METHODS
   /// ------------------------
 
+  void emptyOtpControllers() {
+    fieldOne.text = '';
+    fieldTwo.text = '';
+    fieldThree.text = '';
+    fieldFour.text = '';
+    fieldFive.text = '';
+    fieldSix.text = '';
+  }
+
   Future<void> login() async {
     FirebaseAuth auth = FirebaseAuth.instance;
 
     try {
+      _isLoading.value = true;
       confirmationResult = await auth.signInWithPhoneNumber(_phoneNumber);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ConfirmPasscodeScreen(),
-        ),
+      Navigator.pushAndRemoveUntil(
+          context!,
+          MaterialPageRoute(
+            builder: (context) => const ConfirmPasscodeScreen(),
+          ),
+          (Route<dynamic> route) => false);
+      _isLoading.value = false;
+    } on FirebaseAuthException catch (e) {
+      SnackBar snackBar = SnackBar(
+        content: Text(
+            e.message ?? 'There has been an error. Please try again later.'),
       );
-    } catch (e) {
-      const SnackBar snackBar = SnackBar(
-        content: Text('There has been an error. Please try again later.'),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      ScaffoldMessenger.of(context!).showSnackBar(snackBar);
+      _isLoading.value = false;
     }
+  }
+
+  Future<void> logout() async {
+    Navigator.pushAndRemoveUntil(
+        context!,
+        MaterialPageRoute(
+          builder: (context) => TwoFAWidget(),
+        ),
+        (Route<dynamic> route) => false);
   }
 
   Future<void> confirmPasscode() async {
@@ -93,17 +118,50 @@ class TwoFAController extends GetxController
         fieldFour.text +
         fieldFive.text +
         fieldSix.text;
+    if (confirmationResult == null) {
+      SnackBar snackBar = const SnackBar(
+        content: Text(
+            'There was an error processing your result. Please enter your phone number again!!'),
+      );
+      ScaffoldMessenger.of(context!).showSnackBar(snackBar);
+      Navigator.pushAndRemoveUntil(
+          context!,
+          MaterialPageRoute(
+            builder: (context) => TwoFAWidget(),
+          ),
+          (Route<dynamic> route) => false);
+      emptyOtpControllers();
+
+      return;
+    }
+
     try {
-      await confirmationResult.confirm(_otp ?? '');
-      final SnackBar snackBar = SnackBar(
-        content: Text('success'.tr),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } catch (e) {
-      final SnackBar snackBar = SnackBar(
-        content: Text(e.toString()),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      _isLoading.value = true;
+      final UserCredential? userCredential =
+          await confirmationResult?.confirm(_otp ?? '').then((value) {
+        SnackBar snackBar = const SnackBar(
+          content: Text('Congratulations!'),
+        );
+        ScaffoldMessenger.of(context!).showSnackBar(snackBar);
+        Navigator.pushAndRemoveUntil(
+            context!,
+            MaterialPageRoute(
+              builder: (context) => const SuccessLoginScreen(),
+            ),
+            (Route<dynamic> route) => false);
+        _isLoading.value = false;
+      }).catchError((error, stackTrace) async {
+        final FirebaseAuthException exception = error as FirebaseAuthException;
+        SnackBar snackBar = SnackBar(
+          content: Text(exception.message ??
+              'There has been an error. Please try again later.'),
+        );
+        ScaffoldMessenger.of(context!).showSnackBar(snackBar);
+        _isLoading.value = false;
+        emptyOtpControllers();
+        return;
+      });
+    } on FirebaseAuthException catch (e) {
     }
   }
 }
