@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -162,6 +164,7 @@ class TwoFAController extends GetxController
         return;
       });
     } on FirebaseAuthException catch (e) {
+      log('Error ${e.message}');
     }
   }
 }
